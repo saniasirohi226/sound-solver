@@ -14,7 +14,151 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      calendar_events: {
+        Row: {
+          created_at: string
+          description: string | null
+          end_time: string | null
+          id: string
+          location: string | null
+          start_time: string | null
+          title: string
+          user_id: string
+          voice_note_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          end_time?: string | null
+          id?: string
+          location?: string | null
+          start_time?: string | null
+          title: string
+          user_id: string
+          voice_note_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          end_time?: string | null
+          id?: string
+          location?: string | null
+          start_time?: string | null
+          title?: string
+          user_id?: string
+          voice_note_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_events_voice_note_id_fkey"
+            columns: ["voice_note_id"]
+            isOneToOne: false
+            referencedRelation: "voice_notes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      tasks: {
+        Row: {
+          created_at: string
+          id: string
+          is_completed: boolean
+          priority: string | null
+          title: string
+          updated_at: string
+          user_id: string
+          voice_note_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_completed?: boolean
+          priority?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+          voice_note_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_completed?: boolean
+          priority?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+          voice_note_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_voice_note_id_fkey"
+            columns: ["voice_note_id"]
+            isOneToOne: false
+            referencedRelation: "voice_notes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      voice_notes: {
+        Row: {
+          audio_url: string | null
+          created_at: string
+          duration_seconds: number | null
+          id: string
+          summary: string | null
+          title: string | null
+          transcript: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          audio_url?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          id?: string
+          summary?: string | null
+          title?: string | null
+          transcript?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          audio_url?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          id?: string
+          summary?: string | null
+          title?: string | null
+          transcript?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
