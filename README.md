@@ -1,73 +1,150 @@
-# Welcome to your Lovable project
+# 🎙️ VoiceFlow
 
-## Project info
+**Transform your voice into actionable tasks, summaries, and calendar events — powered by AI.**
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+VoiceFlow is a dark-themed productivity web app that lets you record or upload voice notes and automatically extracts:
+- ✅ **Actionable tasks** with priorities
+- 📝 **Concise summaries** of what you said
+- 📅 **Calendar events** with dates, times, and locations (exportable to any calendar app)
 
-## How can I edit this code?
+Stop typing. Just talk.
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## ✨ Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- 🎤 **Live voice recording** directly in the browser
+- 📁 **Audio file upload** (MP3, WAV, M4A, WebM)
+- 🤖 **AI-powered transcription** via ElevenLabs Speech-to-Text
+- 🧠 **Smart extraction** of tasks, summaries, and events using Google Gemini
+- ✅ **Task management** with priorities and completion tracking
+- 📅 **Calendar export** as `.ics` files (works with Google Calendar, Outlook, Apple Calendar)
+- 🔐 **Secure user authentication** with email/password
+- 🌙 **Dark professional UI** with teal accents
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🚀 Tech Stack
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Frontend:** React 18, TypeScript, Vite
+- **Styling:** Tailwind CSS, shadcn/ui components
+- **Backend:** Supabase (Postgres, Auth, Edge Functions)
+- **AI/Transcription:** ElevenLabs STT + Google Gemini via Lovable AI Gateway
+- **Routing:** React Router
+- **State/Data:** TanStack Query
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 📸 How It Works
+
+1. **Sign up** for a free account
+2. **Record** a voice note or **upload** an audio file
+3. **AI processes** your audio — transcribes it and extracts key information
+4. **Review** your summary, tasks, and calendar events
+5. **Export** events to your favorite calendar app or manage tasks in-app
+
+---
+
+## 🛠️ Local Development
+
+### Prerequisites
+- Node.js 18+ and npm ([install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
+- A Supabase project (or use Lovable Cloud)
+- An ElevenLabs API key
+- A Lovable AI Gateway key (or your own Gemini key)
+
+### Setup
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# 1. Clone the repository
+git clone https://github.com/saniasirohi226/voiceflow.git
+cd voiceflow
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 2. Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
+# 3. Create a .env file with your keys
+cp .env.example .env
+# Then fill in your Supabase URL, anon key, and any API keys
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4. Start the dev server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The app will be available at `http://localhost:8080`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## 🔑 Environment Variables
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Create a `.env` file in the project root with:
 
-## What technologies are used for this project?
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
+VITE_SUPABASE_PROJECT_ID=your_project_id
+```
 
-This project is built with:
+Edge function secrets (set via Supabase dashboard):
+- `ELEVENLABS_API_KEY` — for speech-to-text
+- `LOVABLE_API_KEY` — for AI extraction (or use your own OpenAI/Gemini setup)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 📂 Project Structure
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```
+├── src/
+│   ├── components/       # Reusable UI components (VoiceRecorder, FileUploader, etc.)
+│   ├── pages/            # Route pages (Landing, Login, Dashboard, Tasks, etc.)
+│   ├── hooks/            # Custom React hooks (useAuth)
+│   ├── integrations/     # Supabase client
+│   └── lib/              # Utility functions
+├── supabase/
+│   ├── functions/
+│   │   ├── transcribe-audio/    # ElevenLabs STT edge function
+│   │   └── process-transcript/  # AI extraction edge function
+│   └── config.toml
+└── public/
+```
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 🗄️ Database Schema
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **profiles** — user profile data
+- **voice_notes** — transcripts and summaries
+- **tasks** — extracted tasks linked to voice notes
+- **calendar_events** — extracted events linked to voice notes
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+All tables use Row-Level Security (RLS) — users can only access their own data.
+
+---
+
+## 🚢 Deployment
+
+Deploy easily via [Lovable](https://lovable.dev):
+1. Open the project in Lovable
+2. Click **Share → Publish**
+
+Or self-host: build with `npm run build` and deploy the `dist/` folder to Vercel, Netlify, or any static host.
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Feel free to open issues or submit pull requests.
+
+---
+
+## 📄 License
+
+MIT © [Sania Sirohi](https://github.com/saniasirohi226)
+
+---
+
+## 🙏 Acknowledgments
+
+- Built with [Lovable](https://lovable.dev)
+- Transcription by [ElevenLabs](https://elevenlabs.io)
+- AI processing via [Google Gemini](https://ai.google.dev)
